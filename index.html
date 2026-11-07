@@ -47,12 +47,21 @@
 <body>
 
   <div class="app">
-    <iframe
-      src="https://script.google.com/macros/s/AKfycbx1PpWw9xPxpiCQY31vRvI3YIFxIvChuTAzGOqU1S_q5QuZqd1cMspbK-2PTz-0HwtQWA/exec"
-      title="GUD Asset Inventory">
-    </iframe>
-  </div>
 
+    <div style="
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: white;
+      padding: 5px;
+      border-radius: 10px;
+    ">
+      <img
+        src="./icons/icon-192.png"
+        alt="GUD Logo"
+        style="width: 55px; height: 55px; object-fit: contain;">
+    </div>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
