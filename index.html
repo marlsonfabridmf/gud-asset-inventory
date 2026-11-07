@@ -3,9 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f766e">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
 
   <title>GUD ASSET INVENTORY</title>
 
@@ -13,39 +12,26 @@
   <link rel="icon" href="./icons/icon-192.png">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
+      padding: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
 
-    .header {
-      height: 55px;
-      background: linear-gradient(135deg, #0f766e, #2563eb);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      gap: 10px;
-      font-weight: bold;
-    }
-
-    .header img {
-      width: 38px;
-      height: 38px;
-      border-radius: 6px;
-      object-fit: contain;
-    }
-
     .app {
-      height: calc(100% - 55px);
+      width: 100%;
+      height: 100%;
     }
 
     iframe {
+      display: block;
       width: 100%;
       height: 100%;
       border: none;
@@ -54,11 +40,6 @@
 </head>
 
 <body>
-
-  <div class="header">
-    <img src="./icons/icon-192.png" alt="GUD Logo">
-    GUD ASSET INVENTORY
-  </div>
 
   <div class="app">
     <iframe
