@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#52bd2e">
+
+  <title>GUD ASSET INVENTORY</title>
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      height: 55px;
+      background: #52bd2e;
+      color: #243c7a;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    .header img {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+    }
+
+    .app {
+      height: calc(100% - 55px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <img src="./icons/icon-192.png" alt="GUD Logo">
+    GUD ASSET INVENTORY
+  </div>
+
+  <div class="app">
+    <iframe
+      src="https://script.google.com/macros/s/AKfycbx1PpWw9xPxpiCQY31vRvI3YIFxIvChuTAzGOqU1S_q5QuZqd1cMspbK-2PTz-0HwtQWA/exec"
+      title="GUD Asset Inventory">
+    </iframe>
+  </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
+  </script>
+
+</body>
+</html>
