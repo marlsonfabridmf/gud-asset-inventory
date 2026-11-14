@@ -35,15 +35,51 @@
 
 <body>
 
- 
-<iframe
-  src="https://script.google.com/macros/s/AKfycbx1PpWw9xPxpiCQY31vRvI3YIFxIvChuTAzGOqU1S_q5QuZqd1cMspbK-2PTz-0HwtQWA/exec?mobile=1"
-  title="GUD Assets Mobile"
- allow="camera *"
-</iframe>
-
+  <iframe
+    id="gudApp"
+    title="GUD Assets Mobile"
+    allow="camera *">
+  </iframe>
 
   <script>
+    const appsScriptUrl =
+      "https://script.google.com/macros/s/AKfycbx1PpWw9xPxpiCQY31vRvI3YIFxIvChuTAzGOqU1S_q5QuZqd1cMspbK-2PTz-0HwtQWA/exec?mobile=1";
+
+    const appFrame = document.getElementById("gudApp");
+
+    appFrame.src = appsScriptUrl;
+
+    // Receive requests from Mobile.html
+    window.addEventListener("message", event => {
+
+      if (event.source !== appFrame.contentWindow) return;
+
+      if (event.data &&
+          event.data.type === "GUD_OPEN_SCANNER") {
+
+        window.location.href = "./scan.html";
+      }
+
+    });
+
+    // Return a scanned Asset ID to the mobile app
+    const params = new URLSearchParams(window.location.search);
+    const scannedAssetId = params.get("assetId");
+
+    appFrame.addEventListener("load", () => {
+
+      if (scannedAssetId) {
+
+        appFrame.contentWindow.postMessage({
+          type: "GUD_OPEN_ASSET",
+          assetId: scannedAssetId
+        }, "*");
+
+      }
+
+    });
+
+    // Register service worker
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
     }
