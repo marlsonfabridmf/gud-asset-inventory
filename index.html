@@ -50,17 +50,11 @@
     appFrame.src = appsScriptUrl;
 
     // Receive requests from Mobile.html
-    window.addEventListener("message", event => {
-
-      if (event.source !== appFrame.contentWindow) return;
-
-      if (event.data &&
-          event.data.type === "GUD_OPEN_SCANNER") {
-
-        window.location.href = "./scan.html";
-      }
-
-    });
+window.addEventListener("message", event => {
+  if (event.data && event.data.type === "GUD_OPEN_SCANNER") {
+    window.location.href = "./scan.html";
+  }
+});
 
     // Return a scanned Asset ID to the mobile app
     const params = new URLSearchParams(window.location.search);
