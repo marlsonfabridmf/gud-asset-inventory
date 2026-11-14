@@ -61,22 +61,21 @@ window.addEventListener("message", event => {
   }
 
   // Mobile.html is ready
-  if (event.data.type === "GUD_MOBILE_READY") {
+if (event.data.type === "GUD_MOBILE_READY") {
 
-    alert("GITHUB RECEIVED MOBILE READY");
+  const params = new URLSearchParams(window.location.search);
+  const scannedAssetId = params.get("assetId");
 
-    const params = new URLSearchParams(window.location.search);
-    const scannedAssetId = params.get("assetId");
+  if (scannedAssetId) {
 
-    if (scannedAssetId) {
+    event.source.postMessage({
+      type: "GUD_OPEN_ASSET",
+      assetId: scannedAssetId
+    }, "*");
 
-      appFrame.contentWindow.postMessage({
-        type: "GUD_OPEN_ASSET",
-        assetId: scannedAssetId
-      }, "*");
-
-    }
   }
+
+}
 
 });
 
