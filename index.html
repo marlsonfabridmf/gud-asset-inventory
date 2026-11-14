@@ -51,9 +51,33 @@
 
     // Receive requests from Mobile.html
 window.addEventListener("message", event => {
-  if (event.data && event.data.type === "GUD_OPEN_SCANNER") {
+
+  if (!event.data) return;
+
+  // Open QR scanner
+  if (event.data.type === "GUD_OPEN_SCANNER") {
     window.location.href = "./scan.html";
+    return;
   }
+
+  // Mobile.html is ready
+  if (event.data.type === "GUD_MOBILE_READY") {
+
+    alert("GITHUB RECEIVED MOBILE READY");
+
+    const params = new URLSearchParams(window.location.search);
+    const scannedAssetId = params.get("assetId");
+
+    if (scannedAssetId) {
+
+      appFrame.contentWindow.postMessage({
+        type: "GUD_OPEN_ASSET",
+        assetId: scannedAssetId
+      }, "*");
+
+    }
+  }
+
 });
 
     // Return a scanned Asset ID to the mobile app
