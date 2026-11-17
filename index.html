@@ -14,20 +14,31 @@
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
   <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "0219262c-6d26-412c-9bc7-c9e3b6225ae5",
-        safari_web_id: "web.onesignal.auto.44daf2d6-544c-403f-a3b6-3ab51abe3e37",
-          serviceWorkerPath: "/gud-asset-inventory/sw.js",
-  serviceWorkerParam: {
-    scope: "/gud-asset-inventory/"
-  },
-        notifyButton: {
-          enable: true,
-        },
-      });
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+window.OneSignalDeferred.push(async function(OneSignal) {
+  try {
+    await OneSignal.init({
+      appId: "0219262c-6d26-412c-9bc7-c9e3b6225ae5",
+      safari_web_id: "web.onesignal.auto.44daf2d6-544c-403f-a3b6-3ab51abe3e37",
+      serviceWorkerPath: "/gud-asset-inventory/sw.js",
+      serviceWorkerParam: {
+        scope: "/gud-asset-inventory/"
+      },
+      notifyButton: {
+        enable: true,
+      },
     });
+
+    window.gudOneSignal = OneSignal;
+    window.gudOneSignalReady = true;
+
+    window.dispatchEvent(new Event("onesignal-ready"));
+
+  } catch (error) {
+    console.error("OneSignal initialization failed:", error);
+  }
+});
   </script>
 
 
@@ -50,6 +61,70 @@
       border: none;
       display: block;
     }
+
+#notificationGate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.85);
+  font-family: Arial, sans-serif;
+}
+
+#notificationGate .gate-card {
+  width: 100%;
+  max-width: 390px;
+  padding: 28px 22px;
+  border-radius: 18px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,.25);
+}
+
+#notificationGate h2 {
+  color: #243c7a;
+  margin: 0 0 12px;
+}
+
+#notificationGate p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+#notificationGate button {
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  padding: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#enableNotificationsButton {
+  background: #07834b;
+  color: white;
+}
+
+#checkNotificationsButton {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+#notificationGateMessage {
+  white-space: pre-line;
+}
+
+iframe {
+  visibility: hidden;
+}
+
+
+    
   </style>
 </head>
 
