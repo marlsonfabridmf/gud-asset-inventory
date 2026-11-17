@@ -10,6 +10,22 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon-192.png">
+  
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "0219262c-6d26-412c-9bc7-c9e3b6225ae5",
+        safari_web_id: "web.onesignal.auto.44daf2d6-544c-403f-a3b6-3ab51abe3e37",
+        notifyButton: {
+          enable: true,
+        },
+      });
+    });
+  </script>
+
 
   <style>
     * {
