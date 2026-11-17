@@ -201,6 +201,90 @@ const scannedAssetId = params.get("assetId");
     }
   </script>
 
+<script>
+async function checkNotificationGate() {
+  const gate = document.getElementById("notificationGate");
+  const frame = document.getElementById("gudApp");
+  const message = document.getElementById("notificationGateMessage");
+
+  gate.style.display = "flex";
+  frame.style.visibility = "hidden";
+
+  if (!("Notification" in window)) {
+    message.textContent = "This browser does not support notifications.";
+    return;
+  }
+
+  if (Notification.permission !== "granted") {
+    message.textContent =
+      Notification.permission === "denied"
+        ? "Notifications are blocked. Tap ENABLE NOTIFICATIONS for instructions."
+        : "Please allow notifications to continue.";
+    return;
+  }
+
+  if (!window.gudOneSignalReady || !window.gudOneSignal) {
+    message.textContent = "Connecting to notification service. Please wait.";
+    return;
+  }
+
+  const optedIn =
+    window.gudOneSignal.User.PushSubscription.optedIn;
+
+  if (optedIn !== true) {
+    message.textContent =
+      "This device is not subscribed to notifications. Tap ENABLE NOTIFICATIONS.";
+    return;
+  }
+
+  gate.style.display = "none";
+  frame.style.visibility = "visible";
+}
+
+async function enableNotifications() {
+  const message = document.getElementById("notificationGateMessage");
+
+  if (Notification.permission === "denied") {
+    message.textContent =
+      "Notifications are blocked.\n\n" +
+      "Android: Open Chrome Settings > Site settings > Notifications > GUD Assets > Allow.\n\n" +
+      "iPhone: Open Settings > Notifications and enable notifications for the installed GUD Assets web app, if available.\n\n" +
+      "Return here and tap CHECK AGAIN.";
+    return;
+  }
+
+  if (!window.gudOneSignalReady || !window.gudOneSignal) {
+    message.textContent = "Notification service is still loading. Please try again.";
+    return;
+  }
+
+  try {
+    if (Notification.permission === "default") {
+      await window.gudOneSignal.Slidedown.promptPush();
+    } else {
+      await window.gudOneSignal.User.PushSubscription.optIn();
+    }
+
+    await checkNotificationGate();
+  } catch (error) {
+    message.textContent = "Unable to enable notifications. Please check your browser settings.";
+    console.error(error);
+  }
+}
+
+document.getElementById("enableNotificationsButton")
+  .addEventListener("click", enableNotifications);
+
+document.getElementById("checkNotificationsButton")
+  .addEventListener("click", checkNotificationGate);
+
+window.addEventListener("onesignal-ready", checkNotificationGate);
+window.addEventListener("focus", checkNotificationGate);
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) checkNotificationGate();
+});
+</script>
 
   
 </body>
