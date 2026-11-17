@@ -54,7 +54,22 @@
 </head>
 
 <body>
+<div id="notificationGate">
+  <div class="gate-card">
+    <div style="font-size:42px;">🔔</div>
+    <h2>NOTIFICATIONS REQUIRED</h2>
+    <p>Enable notifications to continue using GUD Asset Inventory.</p>
+    <p id="notificationGateMessage">Checking notification permission...</p>
 
+    <button id="enableNotificationsButton" type="button">
+      ENABLE NOTIFICATIONS
+    </button>
+
+    <button id="checkNotificationsButton" type="button">
+      CHECK AGAIN
+    </button>
+  </div>
+</div>
   <iframe
     id="gudApp"
     title="GUD Assets Mobile"
