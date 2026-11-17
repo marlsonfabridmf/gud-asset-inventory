@@ -1,4 +1,4 @@
-
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 const CACHE_NAME = "gud-inventory-v2";
 
 const FILES = [
