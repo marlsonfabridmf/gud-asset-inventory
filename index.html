@@ -226,9 +226,10 @@ async function checkNotificationGate() {
   frame.style.visibility = "hidden";
 
   if (!("Notification" in window)) {
-    message.textContent = "This browser does not support notifications.";
-    return;
-  }
+  gate.style.display = "none";
+  frame.style.visibility = "visible";
+  return;
+}
 
   if (Notification.permission !== "granted") {
     message.textContent =
