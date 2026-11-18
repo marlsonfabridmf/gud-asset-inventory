@@ -257,6 +257,12 @@ async function checkNotificationGate() {
 }
 
 async function enableNotifications() {
+  if (/GUDNativeAndroid/.test(navigator.userAgent)) {
+    document.getElementById("notificationGate").style.display = "none";
+    document.getElementById("gudApp").style.visibility = "visible";
+    return;
+  }
+
   const message = document.getElementById("notificationGateMessage");
 
   if (Notification.permission === "denied") {
