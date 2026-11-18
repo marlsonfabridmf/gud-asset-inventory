@@ -198,10 +198,13 @@ const scannedAssetId = params.get("assetId");
 
 
 
-    // Register service worker
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
-    }
+    // Register service worker only in normal browsers
+if (
+  !/GUDNativeAndroid/.test(navigator.userAgent) &&
+  "serviceWorker" in navigator
+) {
+  navigator.serviceWorker.register("./sw.js");
+}
   </script>
 
 <script>
