@@ -159,6 +159,10 @@ iframe {
       "https://script.google.com/macros/s/AKfycbx1PpWw9xPxpiCQY31vRvI3YIFxIvChuTAzGOqU1S_q5QuZqd1cMspbK-2PTz-0HwtQWA/exec?mobile=1";
 
     const appFrame = document.getElementById("gudApp");
+    if (/GUDNativeAndroid/.test(navigator.userAgent)) {
+  document.getElementById("notificationGate").style.display = "none";
+  appFrame.style.visibility = "visible";
+}
 
     appFrame.src = appsScriptUrl;
 
