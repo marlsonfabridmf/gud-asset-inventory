@@ -203,6 +203,11 @@ const scannedAssetId = params.get("assetId");
 
 <script>
 async function checkNotificationGate() {
+  if (/GUDNativeAndroid/.test(navigator.userAgent)) {
+    document.getElementById("notificationGate").style.display = "none";
+    document.getElementById("gudApp").style.visibility = "visible";
+    return;
+  }
   const gate = document.getElementById("notificationGate");
   const frame = document.getElementById("gudApp");
   const message = document.getElementById("notificationGateMessage");
